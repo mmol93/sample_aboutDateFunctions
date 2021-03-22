@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         val calendar2: Calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
             // 정확한 시간 설정
-            set(Calendar.HOUR_OF_DAY, 2)
-            set(Calendar.MINUTE, 30)
+            set(Calendar.HOUR_OF_DAY, 20)
+            set(Calendar.MINUTE, 18)
             set(Calendar.SECOND, 0)
         }
 
@@ -60,13 +60,16 @@ class MainActivity : AppCompatActivity() {
         textView3.text = "currentTimeMillis: ${currentTime}\n"
         if (calendar2.timeInMillis > currentTime){
             textView3.append("calendar2의 timeInLillis가 currentTime보다 큼")
+            textView4.text = "${calendar2.timeInMillis - currentTime}"
         }else{
-            textView3.append("currentTime가 보다 calendar2의 timeInLillis큼")
+            textView3.append("currentTime의  timeInLillis가 calendar2보다 큼")
+            textView4.text = "${currentTime - calendar2.timeInMillis}"
         }
     }
     // 결론
     // 1. calendar의 timeInMillis과 System의 timeInMillis은 동일하다
     // 2. calendar.set에서 지정한 시간(시간+분)이 현재 시간보다 숫자상으로 작을 경우 과거로 자동 인식된다
+    // -> 즉, timeInMillis를 이용하여 과거의 시간으로 브로드캐스트 리시버를 설정하면
     // 3. calendar.set에서 지정한 시간(시간+분)이 현재 시간보다 숫자상으로 클 경우 미래로 자동 인식된다
     // 4. 즉, 여기에도 diffTime을 적용하여 과거면 + 24시간 미래면 그대로 적용을 해야한다
 }
